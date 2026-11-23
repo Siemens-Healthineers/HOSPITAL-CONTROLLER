@@ -1,0 +1,111 @@
+# Copyright (c) 2026 Siemens Healthineers AG
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# Shared parameters for the hospital simulation and UI.
+#
+# This file is the source of truth for device IDs, timings, and the robot roster.
+#
+# Keys are node names; values under ros__parameters are loaded at startup.
+# Note: *_ids parameters on the controllers are read-only -> they can ONLY be
+# set here (launch time), never with `ros2 param set` at runtime.
+
+door_controller_node:
+  ros__parameters:
+    door_ids: ["clinical_corridor_3", "clinical_corridor_2", "clinical_corridor_1", "phlebotomy_room", "changing_room", "intervention_or_2", "scanning_room_2", "laboratory", "entry_l", "entry_r", "intervention_or_1", "scanning_room_1"]
+    open_duration: 5.0
+    close_duration: 5.0
+    publish_rate: 5.0
+
+ct_scanner_controller_node:
+  ros__parameters:
+    table_move_duration: 5.0
+    scan_duration: 10.0
+    publish_rate: 3.0
+
+lab_controller_node:
+  ros__parameters:
+    analysis_duration: 10.0
+    publish_rate: 3.0
+    # Read-only -> can ONLY be set here (launch time), never with
+    # `ros2 param set` at runtime. When true the analyser reports out-of-norm
+    # cardiac markers (cTnT > 14 ng/L, cTnI > 20 ng/L, CK-MB > 5%).
+    cardiac_abnormal: true
+
+operating_room_controller_node:
+  ros__parameters:
+    # Whether the operating room's X-ray is currently radiating. Unlike the
+    # cleanliness (set via the set_cleanliness service), this can be set
+    # here at launch time or changed at runtime with `ros2 param set`.
+    xray_active: false
+
+robot_server_node:
+  ros__parameters:
+    # Discrete robot position: one waypoint per room (there is no free
+    # movement; the robot teleports between these on NAVIGATE steps). The four
+    # arrays are parallel -> room_names[i] sits at (room_x[i], room_y[i]) facing
+    # room_yaw[i] radians. Coordinates are room centre points in the world
+    # frame (midpoint of each room's diagonal corners); the clinical corridor is L-shaped
+    # so its waypoint is the centre of the main vertical corridor.
+    room_names: ["parking", "entrance_and_waiting_area", "clinical_corridor", "intervention_or", "storage", "scanning_room", "laboratory", "phlebotomy_room", "changing_room"]
+    room_x:   [12.678, 12.65,  9.05,   4.4,   4.4,   6.7,   13.35,  13.825, 11.55]
+    room_y:   [ 8.4,    6.25,   6.5,   4.1,   6.775, 10.7,   2.4,    10.35,  10.35]
+    room_yaw: [ 0.0,     0.0,   0.0,   0.0,   0.0,   0.0,   0.0,    0.0,    0.0]
+    parking_room: "parking"
+    # Simulated timings (seconds).
+    travel_duration: 3.0
+    interaction_duration: 4.0
+    pose_publish_rate: 5.0
+    # Robot roster read by robots.launch.py, the activity logger, and RViz.
+    robot_ids: ["robot_1"]
+    # Pose frame_id "world" matches the hospital_description model.
+    pose_frame_id: "world"
+    # Interfaces the robot drives. Defaults match the controllers above.
+    door_action: "/hospital/doors/operate"
+    lab_action: "/hospital/lab/analyze"
+    scan_action: "/hospital/ct/scan/run"
+    move_table_action: "/hospital/ct/table/move"
+    cleanliness_service: "/hospital/operating_room/set_cleanliness"
+    operating_room_state_service: "/hospital/operating_room/get_state"
+    # Device result timeout = factor * controller duration + margin (seconds).
+    # The durations are read from these controller nodes when a goal is sent;
+    # the *_fallback_timeout values apply if they cannot be read.
+    door_controller_node: "/door_controller_node"
+    lab_controller_node: "/lab_controller_node"
+    ct_scanner_controller_node: "/ct_scanner_controller_node"
+    controller_timeout_factor: 1.5
+    controller_timeout_margin: 10.0
+    door_fallback_timeout: 30.0
+    lab_fallback_timeout: 60.0
+    scan_fallback_timeout: 60.0
+    table_fallback_timeout: 30.0
+activity_logger_node:
+  ros__parameters:
+    # Axis-aligned rooms as parallel arrays: room_names[i] occupies
+    # [room_min_x[i], room_max_x[i]] x [room_min_y[i], room_max_y[i]] in the
+    # world frame (diagonal corners of each room). Centres match the robot
+    # waypoints above.
+    room_names: ["entrance_and_waiting_area", "laboratory", "phlebotomy_room", "changing_room", "scanning_room", "storage", "intervention_or"]
+    room_min_x: [10.45, 11.85, 12.80, 10.45, 1.15, 1.15, 1.15]
+    room_min_y: [ 3.80,  1.15,  8.85,  8.85, 7.85, 5.85, 1.15]
+    room_max_x: [14.85, 14.85, 14.85, 12.65, 7.65, 7.65, 7.65]
+    room_max_y: [ 8.70,  3.65, 11.85, 11.85, 11.85, 7.70, 5.70]
+    # The clinical corridor is L-shaped, so it is a polygon (flat [x0, y0, x1, y1, ...]).
+    polygon_room_name: "clinical_corridor"
+    polygon_points: [7.80, 11.85, 10.30, 11.85, 10.30, 3.65, 11.70, 3.65, 11.70, 1.15, 7.80, 1.15]
+    # A pose outside every room (walls/doorways) is bucketed under this label.
+    in_transit_label: "in_transit"
+    # A room change is only committed after the robot stays in the new region
+    # this long, so a pose wobbling on a boundary does not spam transitions.
+    debounce_seconds: 0.5
+    # Task lifecycle events forwarded by the RViz panel (authoritative task
+    # timing) and the Start/Stop recording service the panel buttons call.
+    task_event_topic: "/hospital/task_events"
+    set_recording_service: "/hospital/logging/set_recording"
+    # Empty -> $HOME/hospital_logs. Each recording is written to a run_<timestamp>/ directory.
+    log_directory: ""
+rviz2:
+  ros__parameters:
+    # The RViz HospitalControlPanel reads these to build one control group per
+    # device. Keep them in sync with the controllers above. These match the
+    # articulated joint names in hospital_description/urdf/hospital.urdf.xacro.
+    door_ids: ["clinical_corridor_3", "clinical_corridor_2", "clinical_corridor_1", "phlebotomy_room", "changing_room", "intervention_or_2", "scanning_room_2", "laboratory", "entry_l", "entry_r", "intervention_or_1", "scanning_room_1"]
