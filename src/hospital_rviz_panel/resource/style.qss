@@ -1,0 +1,148 @@
+/*
+ * Copyright (c) 2026 Siemens Healthineers AG
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ *
+ * Theme for the hospital RViz panel.
+ *
+ * Palette:
+ *   - Orange (primary accent): #ec6602, hover tint #f9b591
+ *   - Teal (secondary accent): #009999
+ */
+
+QWidget {
+    background-color: #ffffff;
+    color: #1a1a1a;
+    font-family: "Segoe UI", "Noto Sans", Arial, sans-serif;
+    font-size: 13px;
+}
+
+QGroupBox {
+    background-color: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    margin-top: 14px;
+    padding: 6px;
+    font-weight: 600;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 10px;
+    padding: 2px 10px;
+    color: #ffffff;
+    background-color: #ec6602;
+    border-radius: 4px;
+}
+
+QPushButton {
+    background-color: #ec6602;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-weight: 600;
+}
+QPushButton:hover {
+    background-color: #f9b591;
+    color: #1a1a1a;
+}
+QPushButton:disabled {
+    background-color: #e6e6e6;
+    color: #9a9a9a;
+}
+
+/* Compact square icon buttons: just enough padding around the pictogram for a
+ * thin border. The fixed size is set in code so they never stretch with the
+ * panel; this only trims the chrome so the pictogram stays large and centred. */
+QPushButton#iconButton, QPushButton#stopButton {
+    padding: 1px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+}
+
+/* Stop buttons use a muted neutral so the primary actions stay dominant. */
+QPushButton#stopButton {
+    background-color: #6b6b6b;
+}
+QPushButton#stopButton:hover {
+    background-color: #8a8a8a;
+    color: #ffffff;
+}
+
+QProgressBar {
+    background-color: #f5f5f5;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    text-align: center;
+    color: #1a1a1a;
+}
+QProgressBar::chunk {
+    background-color: #009999;
+    border-radius: 3px;
+}
+
+/* Slim, text-free indicator used throughout the panel to keep rows short. */
+QProgressBar#slimBar {
+    min-height: 6px;
+    max-height: 6px;
+    border: none;
+    background-color: #ececec;
+    border-radius: 3px;
+}
+QProgressBar#slimBar::chunk {
+    background-color: #009999;
+    border-radius: 3px;
+}
+
+/* Collapsible location section header: a full-width accent bar that folds its
+ * body when clicked. The disclosure arrow is drawn by QToolButton's arrowType.
+ */
+QToolButton#sectionHeader {
+    background-color: #ec6602;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    margin-top: 2px;
+    font-weight: 700;
+    text-align: left;
+}
+QToolButton#sectionHeader:hover {
+    background-color: #f9b591;
+    color: #1a1a1a;
+}
+/*QToolButton#sectionHeader:pressed {
+    background-color: #009999;
+    color: #ffffff;
+}*/
+
+/* Each door is boxed by a narrow grey outline around its whole row (name,
+ * state, progress bar and buttons). */
+QWidget#deviceRow {
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    padding: 2px;
+}
+QLabel#deviceName {
+    font-weight: 600;
+}
+QLabel#statePill {
+    color: #009999;
+    font-weight: 600;
+}
+
+/* Pinned bottom status line. */
+QLabel#statusBar {
+    padding: 4px 8px;
+    border-top: 1px solid #d9d9d9;
+    color: #1a1a1a;
+}
+QLabel#statusBar[error="true"] {
+    color: #c0392b;
+    font-weight: 600;
+}
+
+QLabel {
+    background: transparent;
+    color: #1a1a1a;
+}

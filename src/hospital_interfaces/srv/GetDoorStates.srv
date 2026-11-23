@@ -1,0 +1,7 @@
+# Request the current state of every door. The same array is continuously
+# published on /hospital/doors/states whenever any door changes its state.
+---
+DoorStateArray door_states
+
+# Copyright (c) 2026 Siemens Healthineers AG
+# SPDX-License-Identifier: GPL-3.0-or-later

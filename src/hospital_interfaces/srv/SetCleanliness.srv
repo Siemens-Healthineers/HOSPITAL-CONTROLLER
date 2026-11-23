@@ -1,0 +1,6 @@
+uint8 target_state # DIRTY | CLEAN
+---
+bool accepted
+
+# Copyright (c) 2026 Siemens Healthineers AG
+# SPDX-License-Identifier: GPL-3.0-or-later

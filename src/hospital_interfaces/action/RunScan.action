@@ -1,0 +1,19 @@
+uint8 COMMAND_START=0
+uint8 COMMAND_STOP=1
+uint8 COMMAND_RETRACT=2
+
+# Goal
+uint8 command
+---
+# Result
+bool success
+string message
+---
+# Feedback at phase boundaries and each completed motion step.
+# Phase constants are defined in CtScanProcedureState.
+hospital_interfaces/CtScannerState telemetry
+uint8 phase
+hospital_interfaces/CtTableState table_telemetry
+
+# Copyright (c) 2026 Siemens Healthineers AG
+# SPDX-License-Identifier: GPL-3.0-or-later

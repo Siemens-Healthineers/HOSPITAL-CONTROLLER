@@ -1,0 +1,16 @@
+uint8 COMMAND_OPEN=0
+uint8 COMMAND_CLOSE=1
+# Goal
+string device_id
+uint8 command
+---
+# Result
+bool success
+string message
+float32 final_percentage
+---
+# Feedback (streamed continuously during operation)
+hospital_interfaces/DoorState telemetry
+
+# Copyright (c) 2026 Siemens Healthineers AG
+# SPDX-License-Identifier: GPL-3.0-or-later

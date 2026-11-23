@@ -1,0 +1,25 @@
+# Goal
+# Command requesting an analysis. Currently the only supported value is
+# "START_BLOODTEST".
+string command
+---
+# Result
+bool success
+string message
+# Cardiac marker concentrations measured by the analyser.
+# Troponin T (cTnT) in ng/L.
+float32 ctnt
+# Troponin I (cTnI) in ng/L.
+float32 ctni
+# Creatine kinase MB (CK-MB) in %.
+float32 ck_mb
+---
+# Feedback (streamed continuously during analysis)
+# Carries only the live state and progress. The cardiac marker results
+# (ctnt, ctni, ck_mb) are intentionally left empty here (result_valid = false)
+# and are delivered exclusively in the Result above, so a streaming client is
+# never shown stale values from a previous analysis.
+hospital_interfaces/LabState telemetry
+
+# Copyright (c) 2026 Siemens Healthineers AG
+# SPDX-License-Identifier: GPL-3.0-or-later

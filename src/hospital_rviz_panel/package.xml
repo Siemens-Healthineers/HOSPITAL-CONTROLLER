@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<!-- Copyright (c) 2026 Siemens Healthineers AG
+     SPDX-License-Identifier: GPL-3.0-or-later -->
+<package format="3">
+  <name>hospital_rviz_panel</name>
+  <version>1.0.0</version>
+  <description>RViz panel that commands the hospital simulation (doors, CT scanner, lab, operating room, ward tasks, and recording) over ROS 2 actions and services and shows live device state.</description>
+  <maintainer email="robocup@siemens-healthineers.com">Siemens Healthineers</maintainer>
+  <license>GPL-3.0-or-later</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>ament_index_cpp</depend>
+  <depend>rclcpp</depend>
+  <depend>rclcpp_action</depend>
+  <depend>rviz_common</depend>
+  <depend>pluginlib</depend>
+  <depend>hospital_interfaces</depend>
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+  <build_depend>qtbase5-dev</build_depend>
+  <exec_depend>libqt5-widgets</exec_depend>
+
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_cmake_gtest</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+  <test_depend>ament_cmake_clang_format</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <rviz plugin="${prefix}/plugin_description.xml"/>
+  </export>
+</package>

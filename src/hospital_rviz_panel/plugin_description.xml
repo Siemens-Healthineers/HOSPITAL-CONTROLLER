@@ -1,0 +1,14 @@
+<!-- Copyright (c) 2026 Siemens Healthineers AG
+     SPDX-License-Identifier: GPL-3.0-or-later -->
+<library path="hospital_rviz_panel">
+  <class
+    name="hospital_rviz_panel/HospitalControlPanel"
+    type="hospital_rviz_panel::HospitalControlPanel"
+    base_class_type="rviz_common::Panel">
+    <description>
+      Control panel for the hospital simulation. Commands the doors, CT
+      scanner, lab, operating room, and ward tasks over ROS 2 actions and
+      services and shows live device state, plus a global emergency-halt button.
+    </description>
+  </class>
+</library>

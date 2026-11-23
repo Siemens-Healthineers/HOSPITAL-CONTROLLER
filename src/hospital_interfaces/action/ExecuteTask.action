@@ -1,0 +1,32 @@
+uint8 CLEAN_OR=0
+uint8 COLLECT_LAB=1
+uint8 GUIDE_CT=2
+uint8 HEART_ATTACK=3
+uint8 SURGICAL_ASSIST=4
+
+# Phase reported through feedback while the goal progresses.
+uint8 PHASE_QUEUED=5
+uint8 PHASE_NAVIGATING=6
+uint8 PHASE_EXECUTING=7
+uint8 PHASE_DONE=8
+
+# Goal
+# Task to perform. See the task constants above for valid values.
+uint8 value
+# Identifier of the target (e.g. operating room or lab id).
+string target_location
+# Client-generated identifier echoed back through feedback and result so the
+# UI can correlate this goal with its queue entry.
+string task_id
+---
+# Result
+bool success
+string message
+---
+# Feedback (streamed continuously while the goal is queued and executing)
+uint8 current_phase
+float32 progress
+string task_id
+
+# Copyright (c) 2026 Siemens Healthineers AG
+# SPDX-License-Identifier: GPL-3.0-or-later

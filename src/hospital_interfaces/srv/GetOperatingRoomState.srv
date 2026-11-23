@@ -1,0 +1,7 @@
+# Request the current operating room state. The same state is continuously
+# published on /hospital/operating_room/state.
+---
+OperatingRoomState state
+
+# Copyright (c) 2026 Siemens Healthineers AG
+# SPDX-License-Identifier: GPL-3.0-or-later
