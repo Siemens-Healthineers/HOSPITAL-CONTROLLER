@@ -1,0 +1,1271 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "metadata": {
+    "component": {
+      "type": "application",
+      "bom-ref": "hospital-controller",
+      "name": "Hospital Controller",
+      "description": "ROS 2 hospital simulation source distribution",
+      "supplier": {
+        "name": "Siemens Healthineers"
+      },
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        }
+      ]
+    },
+    "properties": [
+      {
+        "name": "hospital:target",
+        "value": "ROS 2 Jazzy / Ubuntu 24.04"
+      },
+      {
+        "name": "os:name",
+        "value": "Ubuntu 24.04.5 LTS"
+      },
+      {
+        "name": "os:id",
+        "value": "ubuntu"
+      },
+      {
+        "name": "os:version",
+        "value": "24.04"
+      },
+      {
+        "name": "os:architecture",
+        "value": "amd64"
+      },
+      {
+        "name": "ros:distro",
+        "value": "jazzy"
+      },
+      {
+        "name": "hospital:sbom:scope",
+        "value": "First-party source manifests and installed APT packages resolved from direct build, runtime, test and doc dependencies. Versions and architectures are observed using dpkg-query on the recorded OS, not source-release version constraints. Conditional edges are included without evaluation. External licenses and transitive dependencies are unresolved. Excludes unrelated OS packages, scanner tools and a file/asset inventory. Not a complete installed-system or binary-distribution BOM."
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "ros-package:hospital_arena",
+      "name": "hospital_arena",
+      "version": "1.0.0",
+      "description": "Joint-state bridge: drives the hospital_description URDF model from the controllers' abstract device state so the 3D scene reflects the live system state.",
+      "licenses": [
+        {
+          "expression": "GPL-3.0-or-later"
+        }
+      ],
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "first-party"
+        },
+        {
+          "name": "hospital:manifest",
+          "value": "src/hospital_arena/package.xml"
+        },
+        {
+          "name": "hospital:manifest:sha256",
+          "value": "640060ce3c1d83ec1996f77f71ba97449b49714c727cd3928dc5700f597a07f4"
+        },
+        {
+          "name": "hospital:dependency-declarations",
+          "value": "[{\"attributes\": {}, \"kind\": \"buildtool_depend\", \"name\": \"ament_cmake\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"rclcpp\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"sensor_msgs\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"hospital_interfaces\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"robot_state_publisher\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"xacro\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"hospital_description\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"launch\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"launch_ros\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_auto\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_common\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_cmake_clang_format\"}]"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "ros-package:hospital_bringup",
+      "name": "hospital_bringup",
+      "version": "1.0.0",
+      "description": "System-level launch files and parameters to bring up the hospital simulation and UI.",
+      "licenses": [
+        {
+          "expression": "GPL-3.0-or-later"
+        }
+      ],
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "first-party"
+        },
+        {
+          "name": "hospital:manifest",
+          "value": "src/hospital_bringup/package.xml"
+        },
+        {
+          "name": "hospital:manifest:sha256",
+          "value": "023dd9b1debf5b4b48340320e91449b10852610760850e8f48a0ca88adaab0f4"
+        },
+        {
+          "name": "hospital:dependency-declarations",
+          "value": "[{\"attributes\": {}, \"kind\": \"buildtool_depend\", \"name\": \"ament_cmake\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"hospital_controller\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"hospital_rviz_panel\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"hospital_arena\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"hospital_robot\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"rclcpp_components\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"launch\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"launch_ros\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"ament_index_python\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"python3-yaml\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_auto\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_common\"}]"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "ros-package:hospital_controller",
+      "name": "hospital_controller",
+      "version": "1.0.0",
+      "description": "C++ controller nodes that simulate the hospital's doors, CT scanner, lab, and operating room as composable ROS 2 components.",
+      "licenses": [
+        {
+          "expression": "GPL-3.0-or-later"
+        }
+      ],
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "first-party"
+        },
+        {
+          "name": "hospital:manifest",
+          "value": "src/hospital_controller/package.xml"
+        },
+        {
+          "name": "hospital:manifest:sha256",
+          "value": "efe5e088a51459671e9f459ebb78e42cb65e26d728cc19cd1a44ed220b1197ab"
+        },
+        {
+          "name": "hospital:dependency-declarations",
+          "value": "[{\"attributes\": {}, \"kind\": \"buildtool_depend\", \"name\": \"ament_cmake\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"hospital_interfaces\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"rclcpp\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"rclcpp_action\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"rclcpp_components\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"std_msgs\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"launch\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"launch_ros\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_cmake_gtest\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_auto\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_common\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_cmake_clang_format\"}]"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "ros-package:hospital_description",
+      "name": "hospital_description",
+      "version": "1.0.0",
+      "description": "URDF/xacro description and meshes for the hospital rooms and equipment.",
+      "licenses": [
+        {
+          "expression": "GPL-3.0-or-later"
+        }
+      ],
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "first-party"
+        },
+        {
+          "name": "hospital:manifest",
+          "value": "src/hospital_description/package.xml"
+        },
+        {
+          "name": "hospital:manifest:sha256",
+          "value": "089c6d6b6af77a50c35ccaf4f2c1b95f51b22bf9ab3920e5c777686dc2bbe236"
+        },
+        {
+          "name": "hospital:dependency-declarations",
+          "value": "[{\"attributes\": {}, \"kind\": \"buildtool_depend\", \"name\": \"ament_cmake\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"urdf\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"xacro\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"robot_state_publisher\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"joint_state_publisher_gui\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"rviz2\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"ament_index_python\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"launch\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"launch_ros\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"python3-numpy\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_auto\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_common\"}]"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "ros-package:hospital_interfaces",
+      "name": "hospital_interfaces",
+      "version": "1.0.0",
+      "description": "ROS 2 message, service, and action interface definitions for the Hospital Controller (doors, CT scanner, lab, operating room, and robot tasks).",
+      "licenses": [
+        {
+          "expression": "GPL-3.0-or-later"
+        }
+      ],
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "first-party"
+        },
+        {
+          "name": "hospital:manifest",
+          "value": "src/hospital_interfaces/package.xml"
+        },
+        {
+          "name": "hospital:manifest:sha256",
+          "value": "9b715d840f9eb1797c022e098fd36da0cd8b4315f9882de49b8bab4a3c216f80"
+        },
+        {
+          "name": "hospital:dependency-declarations",
+          "value": "[{\"attributes\": {}, \"kind\": \"buildtool_depend\", \"name\": \"ament_cmake\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_auto\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_common\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"action_msgs\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"builtin_interfaces\"}, {\"attributes\": {}, \"kind\": \"buildtool_depend\", \"name\": \"rosidl_default_generators\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"rosidl_default_runtime\"}]"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "ros-package:hospital_robot",
+      "name": "hospital_robot",
+      "version": "1.0.0",
+      "description": "Protocol-driven robot simulation. Hosts the ExecuteTask ward action, keeps a discrete position (one waypoint per room), opens doors and drives the lab, CT and operating-room controllers, and simulates patient interaction with timers.",
+      "licenses": [
+        {
+          "expression": "GPL-3.0-or-later"
+        }
+      ],
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "first-party"
+        },
+        {
+          "name": "hospital:manifest",
+          "value": "src/hospital_robot/package.xml"
+        },
+        {
+          "name": "hospital:manifest:sha256",
+          "value": "94cb1be805eb7e90c828d15a254e71cad41efa7e7644c1c8046d9964e03f45a5"
+        },
+        {
+          "name": "hospital:dependency-declarations",
+          "value": "[{\"attributes\": {}, \"kind\": \"buildtool_depend\", \"name\": \"ament_cmake\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"rclcpp\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"rclcpp_action\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"rclcpp_components\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"geometry_msgs\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"tf2_ros\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"std_srvs\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"visualization_msgs\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"hospital_interfaces\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"launch\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"launch_ros\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_cmake_gtest\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_auto\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_common\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_cmake_clang_format\"}]"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "ros-package:hospital_rviz_panel",
+      "name": "hospital_rviz_panel",
+      "version": "1.0.0",
+      "description": "RViz panel that commands the hospital simulation (doors, CT scanner, lab, operating room, ward tasks, and recording) over ROS 2 actions and services and shows live device state.",
+      "licenses": [
+        {
+          "expression": "GPL-3.0-or-later"
+        }
+      ],
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "first-party"
+        },
+        {
+          "name": "hospital:manifest",
+          "value": "src/hospital_rviz_panel/package.xml"
+        },
+        {
+          "name": "hospital:manifest:sha256",
+          "value": "f6c863f5350e359c55dc8525c13d87094af6e654b234e0b8bf60802b1c6ca4aa"
+        },
+        {
+          "name": "hospital:dependency-declarations",
+          "value": "[{\"attributes\": {}, \"kind\": \"buildtool_depend\", \"name\": \"ament_cmake\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"ament_index_cpp\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"rclcpp\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"rclcpp_action\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"rviz_common\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"pluginlib\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"hospital_interfaces\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"std_msgs\"}, {\"attributes\": {}, \"kind\": \"depend\", \"name\": \"std_srvs\"}, {\"attributes\": {}, \"kind\": \"build_depend\", \"name\": \"qtbase5-dev\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"libqt5-widgets\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"rviz2\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"launch\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"launch_ros\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"ament_index_python\"}, {\"attributes\": {}, \"kind\": \"exec_depend\", \"name\": \"python3-yaml\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_auto\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_cmake_gtest\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_lint_common\"}, {\"attributes\": {}, \"kind\": \"test_depend\", \"name\": \"ament_cmake_clang_format\"}]"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/libqt5widgets5t64@5.15.13+dfsg-1ubuntu1?arch=amd64&distro=ubuntu-24.04",
+      "name": "libqt5widgets5t64",
+      "version": "5.15.13+dfsg-1ubuntu1",
+      "purl": "pkg:deb/ubuntu/libqt5widgets5t64@5.15.13+dfsg-1ubuntu1?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "libqt5-widgets"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/python3-numpy@1%3A1.26.4+ds-6ubuntu1?arch=amd64&distro=ubuntu-24.04",
+      "name": "python3-numpy",
+      "version": "1:1.26.4+ds-6ubuntu1",
+      "purl": "pkg:deb/ubuntu/python3-numpy@1%3A1.26.4+ds-6ubuntu1?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "python3-numpy"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/python3-yaml@6.0.1-2build2?arch=amd64&distro=ubuntu-24.04",
+      "name": "python3-yaml",
+      "version": "6.0.1-2build2",
+      "purl": "pkg:deb/ubuntu/python3-yaml@6.0.1-2build2?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "python3-yaml"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/qtbase5-dev@5.15.13+dfsg-1ubuntu1?arch=amd64&distro=ubuntu-24.04",
+      "name": "qtbase5-dev",
+      "version": "5.15.13+dfsg-1ubuntu1",
+      "purl": "pkg:deb/ubuntu/qtbase5-dev@5.15.13+dfsg-1ubuntu1?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "qtbase5-dev"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-action-msgs@2.0.4-1noble.20260902.015426?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-action-msgs",
+      "version": "2.0.4-1noble.20260902.015426",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-action-msgs@2.0.4-1noble.20260902.015426?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "action_msgs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-ament-cmake-clang-format@0.17.5-1noble.20261025.230121?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-ament-cmake-clang-format",
+      "version": "0.17.5-1noble.20261025.230121",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-ament-cmake-clang-format@0.17.5-1noble.20261025.230121?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "ament_cmake_clang_format"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-ament-cmake-gtest@2.5.6-2noble.20260225.145055?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-ament-cmake-gtest",
+      "version": "2.5.6-2noble.20260225.145055",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-ament-cmake-gtest@2.5.6-2noble.20260225.145055?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "ament_cmake_gtest"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-ament-cmake@2.5.6-2noble.20260225.222913?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-ament-cmake",
+      "version": "2.5.6-2noble.20260225.222913",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-ament-cmake@2.5.6-2noble.20260225.222913?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "ament_cmake"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-ament-index-cpp@1.8.4-1noble.20260519.011052?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-ament-index-cpp",
+      "version": "1.8.4-1noble.20260519.011052",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-ament-index-cpp@1.8.4-1noble.20260519.011052?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "ament_index_cpp"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-ament-index-python@1.8.4-1noble.20260519.010916?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-ament-index-python",
+      "version": "1.8.4-1noble.20260519.010916",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-ament-index-python@1.8.4-1noble.20260519.010916?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "ament_index_python"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-ament-lint-auto@0.17.5-1noble.20260410.080333?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-ament-lint-auto",
+      "version": "0.17.5-1noble.20260410.080333",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-ament-lint-auto@0.17.5-1noble.20260410.080333?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "ament_lint_auto"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-ament-lint-common@0.17.5-1noble.20260410.114154?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-ament-lint-common",
+      "version": "0.17.5-1noble.20260410.114154",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-ament-lint-common@0.17.5-1noble.20260410.114154?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "ament_lint_common"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-builtin-interfaces@2.0.4-1noble.20260902.013948?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-builtin-interfaces",
+      "version": "2.0.4-1noble.20260902.013948",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-builtin-interfaces@2.0.4-1noble.20260902.013948?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "builtin_interfaces"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-geometry-msgs@5.3.8-1noble.20260902.030745?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-geometry-msgs",
+      "version": "5.3.8-1noble.20260902.030745",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-geometry-msgs@5.3.8-1noble.20260902.030745?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "geometry_msgs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-joint-state-publisher-gui@2.4.3-1noble.20260902.060308?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-joint-state-publisher-gui",
+      "version": "2.4.3-1noble.20260902.060308",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-joint-state-publisher-gui@2.4.3-1noble.20260902.060308?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "joint_state_publisher_gui"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-launch-ros@0.26.12-1noble.20260902.054847?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-launch-ros",
+      "version": "0.26.12-1noble.20260902.054847",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-launch-ros@0.26.12-1noble.20260902.054847?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "launch_ros"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-launch@3.4.11-1noble.20260603.150356?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-launch",
+      "version": "3.4.11-1noble.20260603.150356",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-launch@3.4.11-1noble.20260603.150356?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "launch"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-pluginlib@5.4.6-1noble.20260831.165748?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-pluginlib",
+      "version": "5.4.6-1noble.20260831.165748",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-pluginlib@5.4.6-1noble.20260831.165748?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "pluginlib"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-rclcpp-action@28.1.22-1noble.20260902.103722?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-rclcpp-action",
+      "version": "28.1.22-1noble.20260902.103722",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-rclcpp-action@28.1.22-1noble.20260902.103722?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "rclcpp_action"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-rclcpp-components@28.1.22-1noble.20260902.062054?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-rclcpp-components",
+      "version": "28.1.22-1noble.20260902.062054",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-rclcpp-components@28.1.22-1noble.20260902.062054?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "rclcpp_components"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-rclcpp@28.1.22-1noble.20260902.055335?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-rclcpp",
+      "version": "28.1.22-1noble.20260902.055335",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-rclcpp@28.1.22-1noble.20260902.055335?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "rclcpp"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-robot-state-publisher@3.3.4-1noble.20260903.022201?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-robot-state-publisher",
+      "version": "3.3.4-1noble.20260903.022201",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-robot-state-publisher@3.3.4-1noble.20260903.022201?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "robot_state_publisher"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-rosidl-default-generators@1.6.1-1noble.20260902.021422?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-rosidl-default-generators",
+      "version": "1.6.1-1noble.20260902.021422",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-rosidl-default-generators@1.6.1-1noble.20260902.021422?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "rosidl_default_generators"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-rosidl-default-runtime@1.6.1-1noble.20260902.015921?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-rosidl-default-runtime",
+      "version": "1.6.1-1noble.20260902.015921",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-rosidl-default-runtime@1.6.1-1noble.20260902.015921?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "rosidl_default_runtime"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-rviz-common@14.1.23-1noble.20260903.022201?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-rviz-common",
+      "version": "14.1.23-1noble.20260903.022201",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-rviz-common@14.1.23-1noble.20260903.022201?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "rviz_common"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-rviz2@14.1.23-1noble.20260905.070259?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-rviz2",
+      "version": "14.1.23-1noble.20260905.070259",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-rviz2@14.1.23-1noble.20260905.070259?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "rviz2"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-sensor-msgs@5.3.8-1noble.20260902.041633?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-sensor-msgs",
+      "version": "5.3.8-1noble.20260902.041633",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-sensor-msgs@5.3.8-1noble.20260902.041633?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "sensor_msgs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-std-msgs@5.3.8-1noble.20260902.022418?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-std-msgs",
+      "version": "5.3.8-1noble.20260902.022418",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-std-msgs@5.3.8-1noble.20260902.022418?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "std_msgs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-std-srvs@5.3.8-1noble.20260902.031157?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-std-srvs",
+      "version": "5.3.8-1noble.20260902.031157",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-std-srvs@5.3.8-1noble.20260902.031157?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "std_srvs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-tf2-ros@0.36.22-1noble.20260903.021700?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-tf2-ros",
+      "version": "0.36.22-1noble.20260903.021700",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-tf2-ros@0.36.22-1noble.20260903.021700?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "tf2_ros"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-urdf@2.10.1-2noble.20260831.232032?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-urdf",
+      "version": "2.10.1-2noble.20260831.232032",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-urdf@2.10.1-2noble.20260831.232032?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "urdf"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-visualization-msgs@5.3.8-1noble.20260902.042956?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-visualization-msgs",
+      "version": "5.3.8-1noble.20260902.042956",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-visualization-msgs@5.3.8-1noble.20260902.042956?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "visualization_msgs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:deb/ubuntu/ros-jazzy-xacro@2.1.1-1noble.20260519.011123?arch=amd64&distro=ubuntu-24.04",
+      "name": "ros-jazzy-xacro",
+      "version": "2.1.1-1noble.20260519.011123",
+      "purl": "pkg:deb/ubuntu/ros-jazzy-xacro@2.1.1-1noble.20260519.011123?arch=amd64&distro=ubuntu-24.04",
+      "description": "Installed APT dependency resolved from direct ROS declarations. License and transitive dependencies have not been resolved.",
+      "properties": [
+        {
+          "name": "hospital:origin",
+          "value": "external"
+        },
+        {
+          "name": "hospital:version:source",
+          "value": "dpkg-query"
+        },
+        {
+          "name": "deb:architecture",
+          "value": "amd64"
+        },
+        {
+          "name": "ros:rosdep_key",
+          "value": "xacro"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "hospital-controller",
+      "dependsOn": [
+        "ros-package:hospital_arena",
+        "ros-package:hospital_bringup",
+        "ros-package:hospital_controller",
+        "ros-package:hospital_description",
+        "ros-package:hospital_interfaces",
+        "ros-package:hospital_robot",
+        "ros-package:hospital_rviz_panel"
+      ]
+    },
+    {
+      "ref": "ros-package:hospital_arena",
+      "dependsOn": [
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake-clang-format@0.17.5-1noble.20261025.230121?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake@2.5.6-2noble.20260225.222913?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-auto@0.17.5-1noble.20260410.080333?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-common@0.17.5-1noble.20260410.114154?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-launch-ros@0.26.12-1noble.20260902.054847?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-launch@3.4.11-1noble.20260603.150356?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rclcpp@28.1.22-1noble.20260902.055335?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-robot-state-publisher@3.3.4-1noble.20260903.022201?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-sensor-msgs@5.3.8-1noble.20260902.041633?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-xacro@2.1.1-1noble.20260519.011123?arch=amd64&distro=ubuntu-24.04",
+        "ros-package:hospital_description",
+        "ros-package:hospital_interfaces"
+      ]
+    },
+    {
+      "ref": "ros-package:hospital_bringup",
+      "dependsOn": [
+        "pkg:deb/ubuntu/python3-yaml@6.0.1-2build2?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake@2.5.6-2noble.20260225.222913?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-index-python@1.8.4-1noble.20260519.010916?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-auto@0.17.5-1noble.20260410.080333?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-common@0.17.5-1noble.20260410.114154?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-launch-ros@0.26.12-1noble.20260902.054847?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-launch@3.4.11-1noble.20260603.150356?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rclcpp-components@28.1.22-1noble.20260902.062054?arch=amd64&distro=ubuntu-24.04",
+        "ros-package:hospital_arena",
+        "ros-package:hospital_controller",
+        "ros-package:hospital_robot",
+        "ros-package:hospital_rviz_panel"
+      ]
+    },
+    {
+      "ref": "ros-package:hospital_controller",
+      "dependsOn": [
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake-clang-format@0.17.5-1noble.20261025.230121?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake-gtest@2.5.6-2noble.20260225.145055?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake@2.5.6-2noble.20260225.222913?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-auto@0.17.5-1noble.20260410.080333?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-common@0.17.5-1noble.20260410.114154?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-launch-ros@0.26.12-1noble.20260902.054847?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-launch@3.4.11-1noble.20260603.150356?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rclcpp-action@28.1.22-1noble.20260902.103722?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rclcpp-components@28.1.22-1noble.20260902.062054?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rclcpp@28.1.22-1noble.20260902.055335?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-std-msgs@5.3.8-1noble.20260902.022418?arch=amd64&distro=ubuntu-24.04",
+        "ros-package:hospital_interfaces"
+      ]
+    },
+    {
+      "ref": "ros-package:hospital_description",
+      "dependsOn": [
+        "pkg:deb/ubuntu/python3-numpy@1%3A1.26.4+ds-6ubuntu1?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake@2.5.6-2noble.20260225.222913?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-index-python@1.8.4-1noble.20260519.010916?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-auto@0.17.5-1noble.20260410.080333?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-common@0.17.5-1noble.20260410.114154?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-joint-state-publisher-gui@2.4.3-1noble.20260902.060308?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-launch-ros@0.26.12-1noble.20260902.054847?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-launch@3.4.11-1noble.20260603.150356?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-robot-state-publisher@3.3.4-1noble.20260903.022201?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rviz2@14.1.23-1noble.20260905.070259?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-urdf@2.10.1-2noble.20260831.232032?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-xacro@2.1.1-1noble.20260519.011123?arch=amd64&distro=ubuntu-24.04"
+      ]
+    },
+    {
+      "ref": "ros-package:hospital_interfaces",
+      "dependsOn": [
+        "pkg:deb/ubuntu/ros-jazzy-action-msgs@2.0.4-1noble.20260902.015426?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake@2.5.6-2noble.20260225.222913?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-auto@0.17.5-1noble.20260410.080333?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-common@0.17.5-1noble.20260410.114154?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-builtin-interfaces@2.0.4-1noble.20260902.013948?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rosidl-default-generators@1.6.1-1noble.20260902.021422?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rosidl-default-runtime@1.6.1-1noble.20260902.015921?arch=amd64&distro=ubuntu-24.04"
+      ]
+    },
+    {
+      "ref": "ros-package:hospital_robot",
+      "dependsOn": [
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake-clang-format@0.17.5-1noble.20261025.230121?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake-gtest@2.5.6-2noble.20260225.145055?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake@2.5.6-2noble.20260225.222913?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-auto@0.17.5-1noble.20260410.080333?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-common@0.17.5-1noble.20260410.114154?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-geometry-msgs@5.3.8-1noble.20260902.030745?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-launch-ros@0.26.12-1noble.20260902.054847?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-launch@3.4.11-1noble.20260603.150356?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rclcpp-action@28.1.22-1noble.20260902.103722?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rclcpp-components@28.1.22-1noble.20260902.062054?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rclcpp@28.1.22-1noble.20260902.055335?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-std-srvs@5.3.8-1noble.20260902.031157?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-tf2-ros@0.36.22-1noble.20260903.021700?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-visualization-msgs@5.3.8-1noble.20260902.042956?arch=amd64&distro=ubuntu-24.04",
+        "ros-package:hospital_interfaces"
+      ]
+    },
+    {
+      "ref": "ros-package:hospital_rviz_panel",
+      "dependsOn": [
+        "pkg:deb/ubuntu/libqt5widgets5t64@5.15.13+dfsg-1ubuntu1?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/python3-yaml@6.0.1-2build2?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/qtbase5-dev@5.15.13+dfsg-1ubuntu1?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake-clang-format@0.17.5-1noble.20261025.230121?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake-gtest@2.5.6-2noble.20260225.145055?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-cmake@2.5.6-2noble.20260225.222913?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-index-cpp@1.8.4-1noble.20260519.011052?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-index-python@1.8.4-1noble.20260519.010916?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-auto@0.17.5-1noble.20260410.080333?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-ament-lint-common@0.17.5-1noble.20260410.114154?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-launch-ros@0.26.12-1noble.20260902.054847?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-launch@3.4.11-1noble.20260603.150356?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-pluginlib@5.4.6-1noble.20260831.165748?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rclcpp-action@28.1.22-1noble.20260902.103722?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rclcpp@28.1.22-1noble.20260902.055335?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rviz-common@14.1.23-1noble.20260903.022201?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-rviz2@14.1.23-1noble.20260905.070259?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-std-msgs@5.3.8-1noble.20260902.022418?arch=amd64&distro=ubuntu-24.04",
+        "pkg:deb/ubuntu/ros-jazzy-std-srvs@5.3.8-1noble.20260902.031157?arch=amd64&distro=ubuntu-24.04",
+        "ros-package:hospital_interfaces"
+      ]
+    }
+  ],
+  "compositions": [
+    {
+      "aggregate": "incomplete",
+      "assemblies": [
+        "hospital-controller"
+      ]
+    }
+  ]
+}

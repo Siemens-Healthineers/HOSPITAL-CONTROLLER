@@ -1,0 +1,50 @@
+# SPDX-FileCopyrightText: 2026 Siemens Healthineers AG
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# REUSE metadata for files that cannot carry an SPDX header. Check the whole
+# repository with `reuse lint` (see CONTRIBUTING.md).
+
+version = 1
+
+# Root documentation. CODE_OF_CONDUCT.md is copied from the Siemens
+# Healthineers SHIELD-DAVE project and relicensed here with permission.
+[[annotations]]
+path = [
+  "README.md",
+  "CODE_OF_CONDUCT.md",
+  "Maintainer.md",
+  "SECURITY.md",
+  "THIRD_PARTY_LICENSES.md",
+
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Siemens Healthineers AG"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = "sbom/*.cdx.json"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Siemens Healthineers AG"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# Pictograms created with generative AI tools (see THIRD_PARTY_LICENSES.md,
+# section "AI-Generated Assets").
+[[annotations]]
+path = "src/hospital_rviz_panel/resource/*.png"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Siemens Healthineers AG"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+SPDX-FileComment = "Generated with generative AI tools, see THIRD_PARTY_LICENSES.md"
+
+[[annotations]]
+path = "src/hospital_bringup/docs/*.png"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Siemens Healthineers AG"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# Hospital model meshes and textures (glTF, BIN, PNG, STL).
+[[annotations]]
+path = "src/hospital_description/meshes/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Siemens Healthineers AG"
+SPDX-License-Identifier = "GPL-3.0-or-later"
