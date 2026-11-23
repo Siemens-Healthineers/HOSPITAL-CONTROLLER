@@ -1,0 +1,318 @@
+<?xml version="1.0"?>
+<!-- Copyright (c) 2026 Siemens Healthineers AG
+     SPDX-License-Identifier: GPL-3.0-or-later -->
+<!--
+  hospital.urdf.xacro
+  The ceiling is intentionally omitted to make inspection easier.
+-->
+<robot name="hospital" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="mesh_package" default="hospital_description"/>
+
+  <!-- ============================ properties ============================ -->
+  <xacro:property name="visual_dir"
+                  value="package://$(arg mesh_package)/meshes/visual"/>
+  <xacro:property name="collision_dir"
+                  value="package://$(arg mesh_package)/meshes/collision"/>
+
+  <!-- ============================== macros ============================== -->
+  <!--
+    static_part: one rigid mesh fixed to a parent frame.
+    By default it attaches to "world" at the origin, which works when the mesh
+    carries its own world position. Override xyz/rpy/parent when a part has a
+    local origin that must be positioned. Override mesh when the filename
+    stem differs from the link name. offset shifts the meshes inside the link,
+    e.g. to put the link frame at the centre of a mesh authored off-centre.
+  -->
+  <xacro:macro name="static_part"
+               params="name parent:=world xyz:='0 0 0' rpy:='0 0 0' mesh:=''
+                       offset:='0 0 0'">
+    <link name="${name}">
+      <visual>
+        <origin xyz="${offset}" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${visual_dir}/${mesh or name}.gltf"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="${offset}" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${collision_dir}/${mesh or name}.stl"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${name}_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+  </xacro:macro>
+
+  <!--
+    hinged_door: a door that swings about a vertical hinge.
+    The mesh has its world position baked in, so the visual is shifted by
+    -(hx,hy,hz) to keep it drawn in place while the link frame sits ON the hinge.
+    hx,hy,hz = world position of the hinge (from Blender N-panel / 3D cursor).
+    upper>0 opens one way; use a negative lower to open the other way.
+  -->
+  <xacro:macro name="hinged_door"
+               params="name mesh hx hy hz axis:='0 0 1'
+                       lower:=0 upper:=1.5708 parent:=world">
+    <link name="${name}">
+      <visual>
+        <origin xyz="${-hx} ${-hy} ${-hz}" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${visual_dir}/${mesh}.gltf"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="${-hx} ${-hy} ${-hz}" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${collision_dir}/${mesh}.stl"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${name}_hinge" type="revolute">
+      <parent link="${parent}"/>
+      <child link="${name}"/>
+      <origin xyz="${hx} ${hy} ${hz}" rpy="0 0 0"/>
+      <axis xyz="${axis}"/>
+      <limit lower="${lower}" upper="${upper}" effort="20" velocity="1.0"/>
+    </joint>
+  </xacro:macro>
+
+  <!--
+    sliding_door: a door/leaf that translates (e.g. bi-parting or automatic
+    entrance doors). Pure translation is position-independent, so the baked mesh
+    needs no offset; only the slide axis direction and travel matter.
+  -->
+  <xacro:macro name="sliding_door"
+               params="name mesh axis:='1 0 0' lower:=0 upper:=0.9
+                       ox:=0 oy:=0 oz:=0 parent:=world">
+    <link name="${name}">
+      <visual>
+        <origin xyz="${ox} ${oy} ${oz}" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${visual_dir}/${mesh}.gltf"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="${ox} ${oy} ${oz}" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${collision_dir}/${mesh}.stl"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${name}_slide" type="prismatic">
+      <parent link="${parent}"/>
+      <child link="${name}"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <axis xyz="${axis}"/>
+      <limit lower="${lower}" upper="${upper}" effort="50" velocity="0.5"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- ============================ root frame ============================ -->
+  <link name="world"/>
+
+  <!-- ============================ structure ============================ -->
+  <!-- room shell: detailed visual (room_static.gltf), low-poly collision
+       (room_static.stl). -->
+  <link name="room_static">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${visual_dir}/room_static.gltf"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${collision_dir}/room_static.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="room_static_joint" type="fixed">
+    <parent link="world"/>
+    <child link="room_static"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+  <!-- Ceiling omitted by design: <xacro:static_part name="ceiling"/> -->
+
+  <!-- =========================== swing doors ===========================
+       Revolute about a vertical hinge (axis 0 0 1). -->
+  <xacro:hinged_door name="clinical_corridor_3" mesh="Hallway_3" hx="7.65"    hy="6.3142"  hz="0.0"
+                     lower="-1.5708" upper="0"/>
+  <xacro:hinged_door name="clinical_corridor_2" mesh="Hallway_2" hx="10.45"   hy="11.6583" hz="0.0"
+                     lower="-1.5708" upper="0"/>
+  <xacro:hinged_door name="clinical_corridor_1" mesh="Hallway_1" hx="10.45"   hy="4.0202"  hz="0.0"
+                     lower="0" upper="1.5708"/>
+  <xacro:hinged_door name="phlebotomy_room" mesh="Examination_Room" hx="14.5752" hy="8.85"    hz="0.0"
+                     lower="0" upper="1.5708"/>
+  <xacro:hinged_door name="changing_room" mesh="Changing_Room" hx="10.8084" hy="8.85"    hz="0.0"
+                     lower="-1.5708" upper="0"/>
+  <xacro:hinged_door name="intervention_or_2" mesh="Operating_Room_2" hx="1.3405"  hy="5.7"     hz="0.0"
+                     lower="0" upper="1.5708"/>
+  <xacro:hinged_door name="scanning_room_2" mesh="CT_2" hx="1.3405"  hy="7.85"    hz="0.0"
+                     lower="-1.5708" upper="0"/>
+  <xacro:hinged_door name="laboratory" mesh="Laboratory" hx="12.0201" hy="3.65"   hz="0.0"
+                     lower="0" upper="1.5708"/>
+  <xacro:hinged_door name="entry_l" mesh="Entry_L"  hx="15.0" hy="5.4577" hz="0.0"
+                     lower="0" upper="1.5708"/>
+  <xacro:hinged_door name="entry_r" mesh="Entry_R" hx="15.0" hy="7.3877" hz="0.0"
+                     lower="-1.5708" upper="0"/>
+
+  <!-- ========================== sliding doors ==========================
+       Meshes are baked at a half-open pose; ox/oy/oz shift the visual to the
+       CLOSED pose so q=0 = closed, q=upper = fully open. -->
+  <!-- Angio: closed y=4.747, open y=3.4882, baked y=4.1095 -->
+  <xacro:sliding_door name="intervention_or_1" mesh="Operating_Room_1" axis="0 -1 0"
+                      oy="0.6375" lower="0" upper="1.2588"/>
+  <!-- CT: closed y=8.91949, open y=10.639, baked y=9.7695 -->
+  <xacro:sliding_door name="scanning_room_1" mesh="Ct_1" axis="0 1 0"
+                      oy="-0.85001" lower="0" upper="1.71951"/>
+
+  <!-- ============================ furniture ============================ -->
+  <xacro:static_part name="hospital_bed"/>
+  <!-- Trolley: the mesh origin is a footprint corner, so offset puts the link
+       frame at the footprint centre on the floor. Move/turn it via xyz/rpy. -->
+  <xacro:static_part name="trolly" xyz="13.4 9.5 0" rpy="0 0 0"
+                     offset="-0.2139 -0.1692 0"/>
+
+  <!-- ============================== CT scanner ===========================
+       Telescopic column: ct_lift (prismatic Z) is the DRIVER; q=0 = extended
+       (current baked pose), q=-0.479147 = fully collapsed. Shrouds 01-05 are
+       mimic joints with multiplier travel_k/H, travel_k=(k-1)*0.1077+0.048347.
+       Tabletop rides the lift (via the carriage chain) and additionally slides
+       into the bore: -X rotated 5 deg clockwise, ~1.8 m. -->
+  <xacro:property name="ct_H" value="0.479147"/>
+
+  <!-- static parts -->
+  <xacro:static_part name="ct_scanner_base" mesh="ct_base"/>
+  <xacro:static_part name="ct_scanner_gantry" mesh="ct_gantry"/>
+
+  <!-- DRIVER: carriage elevation -->
+  <link name="ct_scanner_carriage_base">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${visual_dir}/ct_carriage_base.gltf"/></geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${collision_dir}/ct_carriage_base.stl"/></geometry>
+    </collision>
+  </link>
+  <joint name="ct_lift" type="prismatic">
+    <parent link="ct_scanner_base"/>
+    <child link="ct_scanner_carriage_base"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="${-ct_H}" upper="0" effort="2000" velocity="0.05"/>
+  </joint>
+
+  <!-- telescopic shrouds: mimic ct_lift. Written explicitly because xacro
+       numifies a zero-padded index ("01"->1) whenever it passes through ${},
+       which would break the mesh filenames. mult = travel_k / ct_H,
+       travel_k = (k-1)*0.1077 + 0.048347 -> 0.10090 .. 1.0. -->
+  <link name="ct_scanner_shroud_01">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${visual_dir}/ct_shroud_01.gltf"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${collision_dir}/ct_shroud_01.stl"/></geometry></collision>
+  </link>
+  <joint name="ct_shroud_01" type="prismatic">
+    <parent link="ct_scanner_base"/><child link="ct_scanner_shroud_01"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 0 1"/>
+    <limit lower="${-ct_H}" upper="0" effort="0" velocity="0.05"/>
+    <mimic joint="ct_lift" multiplier="0.10090" offset="0"/>
+  </joint>
+
+  <link name="ct_scanner_shroud_02">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${visual_dir}/ct_shroud_02.gltf"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${collision_dir}/ct_shroud_02.stl"/></geometry></collision>
+  </link>
+  <joint name="ct_shroud_02" type="prismatic">
+    <parent link="ct_scanner_base"/><child link="ct_scanner_shroud_02"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 0 1"/>
+    <limit lower="${-ct_H}" upper="0" effort="0" velocity="0.05"/>
+    <mimic joint="ct_lift" multiplier="0.32568" offset="0"/>
+  </joint>
+
+  <link name="ct_scanner_shroud_03">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${visual_dir}/ct_shroud_03.gltf"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${collision_dir}/ct_shroud_03.stl"/></geometry></collision>
+  </link>
+  <joint name="ct_shroud_03" type="prismatic">
+    <parent link="ct_scanner_base"/><child link="ct_scanner_shroud_03"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 0 1"/>
+    <limit lower="${-ct_H}" upper="0" effort="0" velocity="0.05"/>
+    <mimic joint="ct_lift" multiplier="0.55045" offset="0"/>
+  </joint>
+
+  <link name="ct_scanner_shroud_04">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${visual_dir}/ct_shroud_04.gltf"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${collision_dir}/ct_shroud_04.stl"/></geometry></collision>
+  </link>
+  <joint name="ct_shroud_04" type="prismatic">
+    <parent link="ct_scanner_base"/><child link="ct_scanner_shroud_04"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 0 1"/>
+    <limit lower="${-ct_H}" upper="0" effort="0" velocity="0.05"/>
+    <mimic joint="ct_lift" multiplier="0.77523" offset="0"/>
+  </joint>
+
+  <link name="ct_scanner_shroud_05">
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${visual_dir}/ct_shroud_05.gltf"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${collision_dir}/ct_shroud_05.stl"/></geometry></collision>
+  </link>
+  <joint name="ct_shroud_05" type="prismatic">
+    <parent link="ct_scanner_base"/><child link="ct_scanner_shroud_05"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 0 1"/>
+    <limit lower="${-ct_H}" upper="0" effort="0" velocity="0.05"/>
+    <mimic joint="ct_lift" multiplier="1.00000" offset="0"/>
+  </joint>
+
+  <!-- cantilever rides the carriage (inherits the lift) -->
+  <link name="ct_scanner_cantilever_support">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${visual_dir}/ct_cantilever_support.gltf"/></geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${collision_dir}/ct_cantilever_support.stl"/></geometry>
+    </collision>
+  </link>
+  <joint name="ct_cantilever_fixed" type="fixed">
+    <parent link="ct_scanner_carriage_base"/>
+    <child link="ct_scanner_cantilever_support"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- tabletop slides into the bore (inherits lift from the chain) -->
+  <link name="ct_scanner_tabletop">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${visual_dir}/ct_tabletop.gltf"/></geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${collision_dir}/ct_tabletop.stl"/></geometry>
+    </collision>
+  </link>
+  <joint name="ct_table_slide" type="prismatic">
+    <parent link="ct_scanner_cantilever_support"/>
+    <child link="ct_scanner_tabletop"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="0" upper="1.8" effort="500" velocity="0.1"/>
+  </joint>
+
+</robot>
